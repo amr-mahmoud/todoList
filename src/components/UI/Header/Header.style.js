@@ -1,3 +1,7 @@
 import { css } from 'styled-components';
 
-export default css``;
+export default css`
+	width: 100%;
+	height: 100px;
+	background: grey;
+`;
