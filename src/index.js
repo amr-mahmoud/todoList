@@ -12,26 +12,29 @@ const client = new ApolloClient({
 	uri: 'https://api-euwest.graphcms.com/v1/ck75bq3rr0k5i01cyf9p599sh/master',
 });
 
-client
-	.mutate({
-		mutation: gql`
-			mutation {
-				updateTask(
-					data: { title: "RubixTask", description: "you have an obligation to end the rubix task" }
-					where: { id: "ck7699nkdez4g0b20kczng64q" }
-				) {
-					id
-				}
-			}
-		`,
-	})
-	.then(result => console.log(result));
+// client
+// 	.mutate({
+// 		mutation: gql`
+// 			mutation {
+// 				updateTask(
+// 					data: { title: "RubixTask", description: "you have an obligation to end the rubix task" }
+// 					where: { id: "ck7699nkdez4g0b20kczng64q" }
+// 				) {
+// 					id
+// 				}
+// 			}
+// 		`,
+// 	})
+// 	.then(result => console.log(result));
 
 client
 	.query({
 		query: gql`
 			{
-				tasks
+				tasks {
+					id
+					title
+				}
 			}
 		`,
 	})
