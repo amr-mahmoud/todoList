@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import { Checkbox } from 'semantic-ui-react';
+import TaskItemModal from './components/TaskItemModal';
 
 const TaskItemDescription = styled.p`
 	overflow: hidden;
@@ -36,7 +37,8 @@ const DueTimeWrapper = styled.div`
 const TaskItemBody = styled.div``;
 
 const TasksItem = props => {
-	const { title, description, completed, dueTime } = props;
+	const { title, description, completed, dueTime, updateTask, id } = props;
+	const [showModal, setShowModal] = useState(false);
 
 	const getRemainingDateString = () => {
 		const dueDate = moment(dueTime);
@@ -48,18 +50,36 @@ const TasksItem = props => {
 			return `Remaining Time : ${Math.floor(timeRemainingInWeeks)} weeks and ${timeRemainingInDays} days `;
 		return `Deadline line Has been reached`;
 	};
-	return (
-		<TasksItemWrapper>
-			<TasksItemHeaderWWrapper>
-				<Title>{title}</Title>
-				<DueTimeWrapper>{getRemainingDateString()}</DueTimeWrapper>
-			</TasksItemHeaderWWrapper>
 
-			<TaskItemBody>
-				<Checkbox toggle />
-				<TaskItemDescription>{description}</TaskItemDescription>
-			</TaskItemBody>
-		</TasksItemWrapper>
+	const taskItemOnClickHandler = () => {
+		setShowModal(!showModal);
+	};
+	return (
+		<>
+			<TaskItemModal
+				title={title}
+				checked={completed}
+				dueDateStart={dueTime}
+				description={description}
+				setShowModal={taskItemOnClickHandler}
+				open={showModal}
+				updateTask={updateTask}
+				mode="Edit"
+				id={id}
+			/>
+			<TasksItemWrapper onClick={() => taskItemOnClickHandler()}>
+				<TasksItemHeaderWWrapper>
+					<Title>{title}</Title>
+
+					<DueTimeWrapper>{getRemainingDateString()}</DueTimeWrapper>
+				</TasksItemHeaderWWrapper>
+
+				<TaskItemBody>
+					<Checkbox toggle checked={completed} />
+					<TaskItemDescription>{description}</TaskItemDescription>
+				</TaskItemBody>
+			</TasksItemWrapper>
+		</>
 	);
 };
 

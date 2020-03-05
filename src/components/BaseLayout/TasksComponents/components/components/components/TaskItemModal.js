@@ -40,13 +40,10 @@ const TaskItemModal = props => {
 		setDueDate(date);
 	};
 
-	const titleChangeHandler = e => {
-		// const { value } = data;
-		console.log(e.target.value);
-
-		setTaskTitle(e.target.value);
+	const titleChangeHandler = (_e, data) => {
+		const { value } = data;
+		setTaskTitle(value);
 	};
-	console.log(taskTitle);
 
 	const descriptionChangeHandler = (e, data) => {
 		const { value } = data;
@@ -64,59 +61,41 @@ const TaskItemModal = props => {
 		updateTask(task);
 		setShowModal(false);
 	};
-	console.log('renders');
-	const ModalBodyType = () => {
-		switch (mode) {
-			case 'Edit':
-				return (
-					<ModalComponent open={open} size={'large'}>
-						<Modal.Header>Edit Task</Modal.Header>;
-						<Modal.Content>
-							<Modal.Description>
-								<ModalBodyWrapper>
-									<input onChange={e => titleChangeHandler(e)}></input>
-									<Input
-										onKeyDown={event => console.log(event)}
-										onChange={e => setTaskTitle(e.target.value)}
-										label={'Title'}
-									/>
-									<Input
-										defaultValue={description}
-										onChange={(e, data) => descriptionChangeHandler(e, data)}
-										label={'Description'}
-									/>
-									<CheckboxWrapper>
-										<DatePicker showTimeSelect onChange={date => datePickerHandler(date)} />
 
-										<ModalCheckBox
-											label={taskCompleted ? 'Completed' : 'Not Finished'}
-											checked={taskCompleted}
-											toggle
-											onChange={() => checkBoxHandler()}
-										></ModalCheckBox>
-									</CheckboxWrapper>
-								</ModalBodyWrapper>
-							</Modal.Description>
-						</Modal.Content>
-						<Modal.Actions>
-							<Button color="black" onClick={() => setShowModal(false)}>
-								Cancel
-							</Button>
-							<Button primary icon="checkmark" content="Update" onClick={() => submitTask()} />
-						</Modal.Actions>
-					</ModalComponent>
-				);
+	return (
+		<ModalComponent open={open} size={'large'}>
+			<Modal.Header>Edit Task</Modal.Header>;
+			<Modal.Content>
+				<Modal.Description>
+					<ModalBodyWrapper>
+						<Input defaultValue={title} onChange={(e, data) => titleChangeHandler(e, data)} label={'Title'} />
 
-			default:
-				return (
-					<ModalComponent open={open}>
-						<Modal.Header>Create Task</Modal.Header>;
-					</ModalComponent>
-				);
-		}
-	};
+						<Input
+							defaultValue={description}
+							onChange={(e, data) => descriptionChangeHandler(e, data)}
+							label={'Description'}
+						/>
+						<CheckboxWrapper>
+							<DatePicker showTimeSelect onChange={date => datePickerHandler(date)} />
 
-	return <ModalBodyType />;
+							<ModalCheckBox
+								label={taskCompleted ? 'Completed' : 'Not Finished'}
+								checked={taskCompleted}
+								toggle
+								onChange={() => checkBoxHandler()}
+							></ModalCheckBox>
+						</CheckboxWrapper>
+					</ModalBodyWrapper>
+				</Modal.Description>
+			</Modal.Content>
+			<Modal.Actions>
+				<Button color="black" onClick={() => setShowModal(false)}>
+					Cancel
+				</Button>
+				<Button primary icon="checkmark" content="Update" onClick={() => submitTask()} />
+			</Modal.Actions>
+		</ModalComponent>
+	);
 };
 
 export default TaskItemModal;

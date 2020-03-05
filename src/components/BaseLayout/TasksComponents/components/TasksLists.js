@@ -4,13 +4,10 @@ import TaskItem from './components/TaskItem';
 
 const TasksListWrapper = styled.div``;
 const TasksList = props => {
-	const { tasksResults } = props;
-	console.log(props);
+	const { tasksResults, updateTask } = props;
 	return (
 		<TasksListWrapper>
-			{tasksResults.map(value => (
-				<TaskItem key={value.id} {...value} />
-			))}
+			{tasksResults && tasksResults.map(value => <TaskItem updateTask={updateTask} key={value.id} {...value} />)}
 		</TasksListWrapper>
 	);
 };

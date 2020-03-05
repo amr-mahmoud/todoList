@@ -3,12 +3,12 @@ import { API_SERVICE } from '../service/apiService';
 import { TASK } from './types';
 import store from '../store';
 
-export function importAllTasks(input) {
+export function importAllTasks(first, skip) {
 	store.dispatch({ type: TASK.IMPORT_ALL_REQUEST });
 	return API_SERVICE.MYTASK_API.query({
 		query: gql`
-			query test($input: Int = ${input}) {
-				tasks(first: 5, skip: $input) {
+			query test($first: Int = ${first},$skip: Int = ${skip}) {
+				tasks(first: $first, skip: $skip) {
 					id
 					title
 					description 
@@ -114,27 +114,36 @@ export function deleteTask(input) {
 }
 
 export function updateTask(input) {
-	store.dispatch({ type: TASK.DELETE_REQUEST });
+	store.dispatch({ type: TASK.UPDATE_REQUEST });
+
+	const { tasksReducer } = store.getState();
+	const { tasksResults } = tasksReducer;
 	const { id } = input;
 	delete input.id;
-	return API_SERVICE.MYTASK_API.mutate({
-		variables: { input, id },
-		mutation: gql`
-			mutation updateTask($input: TaskUpdateInput!, $id: ID!) {
-				updateTask(data: $input, where: { id: $id }) {
-					id
-					title
-					completed
+	return dispatch => {
+		return API_SERVICE.MYTASK_API.mutate({
+			variables: { input, id },
+			mutation: gql`
+				mutation updateTask($input: TaskUpdateInput!, $id: ID!) {
+					updateTask(data: $input, where: { id: $id }) {
+						id
+						title
+						completed
+						description
+						completed
+						dueTime
+					}
 				}
-			}
-		`,
-	})
-		.then(result => {
-			console.log('RES', result);
-			return store.dispatch({ type: TASK.UPDATE_SUCCESS, payload: result.data.tasks });
+			`,
 		})
-		.catch(err => {
-			console.log('err', err);
-			store.dispatch({ type: TASK.UPDATE_FAILED, payload: err });
-		});
+			.then(result => {
+				dispatch({ type: TASK.CLEAR_ALL });
+				console.log(tasksResults);
+				importAllTasks(5, 0);
+				return dispatch({ type: TASK.UPDATE_SUCCESS });
+			})
+			.catch(err => {
+				dispatch({ type: TASK.UPDATE_FAILED, payload: err });
+			});
+	};
 }
