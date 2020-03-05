@@ -19,8 +19,8 @@ const TasksListContainer = props => {
 	};
 
 	useEffect(() => {
-		importAllTasks(5, 0);
-	}, []);
+		if (tasksResults.length < 1) importAllTasks(5, 0);
+	}, [tasksResults.length]);
 
 	useEffect(() => {
 		setLoading(false);
