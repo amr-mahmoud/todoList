@@ -1,25 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ModalComponent from '../../../../../UI/Modal';
 import { Button, Modal, Input, Checkbox } from 'semantic-ui-react';
-import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
-const ModalBodyWrapper = styled.div`
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	.ui.input {
-		margin: 20px 0;
-		width: 50%;
-	}
-`;
-const ModalCheckBox = styled(Checkbox)`
-	margin-left: 150px;
-`;
-const CheckboxWrapper = styled.div`
-	margin: 30px 0;
-`;
+import { CheckboxWrapper, ModalCheckBox, ModalBodyWrapper } from './TaskItemModal.style';
 
 const TaskItemModal = props => {
 	const { open, mode, setShowModal, checked, title, description, id, updateTask, createTask } = props;
@@ -32,10 +16,11 @@ const TaskItemModal = props => {
 		setTaskTitle(title);
 	}, [title]);
 
-	const checkBoxHandler = date => {
+	const checkBoxHandler = () => {
 		setTaskCompleted(!taskCompleted);
 	};
 	const datePickerHandler = date => {
+		console.log(date);
 		setDueDate(date);
 	};
 

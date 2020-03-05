@@ -4,6 +4,6 @@ export default css`
 	width: 100%;
 	height: 50px;
 	z-index: 999999999999;
-	background: grey;
+	background-color: ${props => props.theme.primaryLayout};
 	position: fixed;
 `;

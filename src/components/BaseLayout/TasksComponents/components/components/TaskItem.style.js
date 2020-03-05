@@ -3,7 +3,7 @@ import { Icon } from 'semantic-ui-react';
 
 const CompletedLabel = styled.div`
 	margin: 10px 0;
-	color: #2285d0;
+	color: ${props => props.theme.blueTheme};
 	font-family: 'Open Sans', sans-serif;
 `;
 const TaskItemDescription = styled.p`
@@ -16,7 +16,7 @@ const TasksItemWrapper = styled.div`
 	margin: 0 auto 15px auto;
 	border-radius: 40px;
 
-	background: #8281818c;
+	background: ${props => props.theme.secondary};
 	:hover {
 		cursor: pointer;
 		background: #59c7eaa6;

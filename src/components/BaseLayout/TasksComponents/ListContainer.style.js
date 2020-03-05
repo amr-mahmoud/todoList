@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import { Button } from 'semantic-ui-react';
 
 export const Loaderwrapper = styled.div`
-	background: #8080805c;
+	background-color: ${props => props.theme.secondaryBody};
 	width: 100%;
 	margin: 0 20px;
 `;
 
 export const ListContainerWrapper = styled.div`
-	background: #8080805c;
+	background-color: ${props => props.theme.secondaryBody};
 	width: 100%;
 	padding: 60px;
 	padding-bottom: 80px;

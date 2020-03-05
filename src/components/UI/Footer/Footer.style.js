@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 
 export default css`
-	background-color: #4a4848d6;
+	background-color: ${props => props.theme.primaryLayout};
 	width: 100%;
 	position: fixed;
 	left: 0;
