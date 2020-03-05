@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ModalComponent from '../../../../../UI/Modal';
-import { Button, Modal, Input, Checkbox } from 'semantic-ui-react';
+import { Button, Modal, Input } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CheckboxWrapper, ModalCheckBox, ModalBodyWrapper } from './TaskItemModal.style';
@@ -20,7 +20,6 @@ const TaskItemModal = props => {
 		setTaskCompleted(!taskCompleted);
 	};
 	const datePickerHandler = date => {
-		console.log(date);
 		setDueDate(date);
 	};
 

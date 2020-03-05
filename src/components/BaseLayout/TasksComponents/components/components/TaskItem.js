@@ -13,9 +13,18 @@ import {
 } from './TaskItem.style';
 
 const TasksItem = props => {
-	const { title, description, completed, dueTime, updateTask, id, deleteTask, limitedFunctionality } = props;
+	const {
+		title,
+		description,
+		completed,
+		dueTime,
+		updateTask,
+		id,
+		deleteTask,
+		limitedFunctionality,
+		isTabletOrMobile,
+	} = props;
 	const [showModal, setShowModal] = useState(false);
-
 	const getRemainingDateString = () => {
 		const dueDate = moment(dueTime);
 		const dateNow = moment(new Date());
@@ -24,11 +33,16 @@ const TasksItem = props => {
 		const timeRemainingInDays = Math.floor((timeRemainingInWeeks - Math.floor(timeRemainingInWeeks)) * 7);
 		if (timeRemainingInWeeks > 0)
 			return (
-				<DueTimeWrapper>{`Remaining Time : ${Math.floor(
+				<DueTimeWrapper isTabletOrMobile={isTabletOrMobile}>{`Remaining Time : ${Math.floor(
 					timeRemainingInWeeks
 				)} weeks and ${timeRemainingInDays} days `}</DueTimeWrapper>
 			);
-		return <DueTimeWrapper color="#ce3030d4">{`Deadline line Has been reached`}</DueTimeWrapper>;
+		return (
+			<DueTimeWrapper
+				isTabletOrMobile={isTabletOrMobile}
+				color="#ce3030d4"
+			>{`Deadline line Has been reached`}</DueTimeWrapper>
+		);
 	};
 
 	const taskItemOnClickHandler = () => {
@@ -55,9 +69,9 @@ const TasksItem = props => {
 				id={id}
 			/>
 
-			<TasksItemWrapper onClick={() => taskItemOnClickHandler()}>
+			<TasksItemWrapper isTabletOrMobile={isTabletOrMobile} onClick={() => taskItemOnClickHandler()}>
 				{!limitedFunctionality && <DeleteIcon onClick={e => deleteIconOnClickHandler(e)} name="delete"></DeleteIcon>}
-				<TasksItemHeaderWWrapper>
+				<TasksItemHeaderWWrapper isTabletOrMobile={isTabletOrMobile}>
 					<Title>{title}</Title>
 					{getRemainingDateString()}
 				</TasksItemHeaderWWrapper>

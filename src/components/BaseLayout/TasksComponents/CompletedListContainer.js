@@ -4,10 +4,12 @@ import { importAllCompletedTasks } from '../../../actions/tasksActions';
 import { Pagination, Loader } from 'semantic-ui-react';
 import TasksList from './components/TasksLists';
 import { ListContainerWrapper, Loaderwrapper } from './ListContainer.style';
+import { useMediaQuery } from 'react-responsive';
 
 const CompletedListContainer = props => {
 	const { tasksReducer } = props;
 	const { completedTasks, completedTasksCount, pageSize } = tasksReducer;
+	const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
 
 	useEffect(() => {
 		importAllCompletedTasks(0);
@@ -20,8 +22,12 @@ const CompletedListContainer = props => {
 		importAllCompletedTasks(skipItems);
 	};
 	return completedTasks && completedTasks.length > 0 ? (
-		<ListContainerWrapper>
-			<TasksList tasksResults={completedTasks} limitedFunctionality={true}></TasksList>
+		<ListContainerWrapper isTabletOrMobile={isTabletOrMobile}>
+			<TasksList
+				isTabletOrMobile={isTabletOrMobile}
+				tasksResults={completedTasks}
+				limitedFunctionality={true}
+			></TasksList>
 			<Pagination
 				defaultActivePage={1}
 				onPageChange={(e, data) => pageChangeHandler(e, data)}

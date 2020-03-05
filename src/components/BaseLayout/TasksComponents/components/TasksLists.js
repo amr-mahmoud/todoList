@@ -4,12 +4,21 @@ import TaskItem from './components/TaskItem';
 
 const TasksListWrapper = styled.div``;
 const TasksList = props => {
-	const { tasksResults, updateTask, deleteTask, limitedFunctionality, changeTaskToUncomplete } = props;
+	const {
+		tasksResults,
+		updateTask,
+		deleteTask,
+		limitedFunctionality,
+		changeTaskToUncomplete,
+		isTabletOrMobile,
+	} = props;
+	console.log(isTabletOrMobile);
 	return (
 		<TasksListWrapper>
 			{tasksResults &&
 				tasksResults.map(value => (
 					<TaskItem
+						isTabletOrMobile={isTabletOrMobile}
 						changeTaskToUncomplete={changeTaskToUncomplete}
 						limitedFunctionality={limitedFunctionality}
 						updateTask={updateTask}

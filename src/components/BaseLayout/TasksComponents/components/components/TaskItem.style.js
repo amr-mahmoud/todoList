@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Icon } from 'semantic-ui-react';
 
 const CompletedLabel = styled.div`
@@ -20,7 +20,6 @@ const TasksItemWrapper = styled.div`
 	:hover {
 		cursor: pointer;
 		background: #59c7eaa6;
-		padding: 30px;
 	}
 
 	i {
@@ -28,12 +27,22 @@ const TasksItemWrapper = styled.div`
 		float: right;
 		margin: -1px 0 10px 20px;
 	}
+	${props =>
+		props.isTabletOrMobile &&
+		css`
+			width: 90%;
+			padding: 20px;
+		`};
 `;
 
 const TasksItemHeaderWWrapper = styled.div`
 	display: flex;
-	direction: row;
 	justify-content: space-between;
+	${props =>
+		props.isTabletOrMobile &&
+		css`
+			flex-direction: column;
+		`};
 `;
 const Title = styled.h1`
 	font-size: 25px;
@@ -45,6 +54,12 @@ const DueTimeWrapper = styled.div`
 	font-weight: ${props => (props.color ? 'bold' : 'normal')};
 	margin: auto 0;
 	font-size: 12px;
+
+	${props =>
+		props.isTabletOrMobile &&
+		css`
+			margin-top: 20px;
+		`};
 `;
 const TaskItemBody = styled.div`
 	.ui.label.ui.label {

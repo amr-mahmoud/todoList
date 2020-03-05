@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Button } from 'semantic-ui-react';
 
 export const Loaderwrapper = styled.div`
@@ -26,6 +26,12 @@ export const ListContainerWrapper = styled.div`
 		top: 85%;
 		font-size: 15px;
 	}
+
+	${props =>
+		props.isTabletOrMobile &&
+		css`
+			padding: 60px 0;
+		`};
 `;
 
 export const CircularButton = styled(Button)`
@@ -34,4 +40,9 @@ export const CircularButton = styled(Button)`
 	position: fixed;
 	top: 85%;
 	left: 85%;
+	${props =>
+		props.isTabletOrMobile &&
+		css`
+			left: 80%;
+		`};
 `;

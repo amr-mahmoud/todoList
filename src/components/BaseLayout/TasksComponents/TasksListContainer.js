@@ -5,12 +5,14 @@ import { importAllTasks, createTask, deleteTask, updateTask } from '../../../act
 import { ListContainerWrapper, Loaderwrapper, CircularButton } from './ListContainer.style';
 import TaskItemModal from './components/components/components/TaskItemModal';
 import TasksList from './components/TasksLists';
+import { useMediaQuery } from 'react-responsive';
 
 const TasksListContainer = props => {
 	const { tasksReducer, updateTask } = props;
 	const { tasksResults } = tasksReducer;
 	const [loading, setLoading] = useState(false);
 	const [showModal, setShowModal] = useState(false);
+	const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
 
 	const addOnClickHandler = () => {
 		setShowModal(!showModal);
@@ -26,8 +28,7 @@ const TasksListContainer = props => {
 
 	const VisibilityHandler = (_e, data) => {
 		const { calculations } = data;
-		const { bottomVisible, bottomPassed } = calculations;
-		console.log(bottomVisible, bottomPassed);
+		const { bottomVisible } = calculations;
 		if (bottomVisible)
 			if (!loading) {
 				setLoading(true);
@@ -35,7 +36,7 @@ const TasksListContainer = props => {
 			}
 	};
 	return tasksResults && tasksResults.length > 0 ? (
-		<ListContainerWrapper>
+		<ListContainerWrapper isTabletOrMobile={isTabletOrMobile}>
 			<TaskItemModal
 				createTask={createTask}
 				setShowModal={addOnClickHandler}
@@ -46,7 +47,12 @@ const TasksListContainer = props => {
 			<CircularButton onClick={() => addOnClickHandler()} circular icon="add" primary />
 			<Loader inverted active={loading} content="Loading Items Please wait..." />
 			<Visibility onUpdate={(e, calculations) => VisibilityHandler(e, calculations)}>
-				<TasksList updateTask={updateTask} deleteTask={deleteTask} {...tasksReducer} />
+				<TasksList
+					isTabletOrMobile={isTabletOrMobile}
+					updateTask={updateTask}
+					deleteTask={deleteTask}
+					{...tasksReducer}
+				/>
 			</Visibility>
 		</ListContainerWrapper>
 	) : (
