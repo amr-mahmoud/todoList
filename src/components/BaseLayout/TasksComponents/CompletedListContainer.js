@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { importAllCompletedTasks } from '../../../actions/tasksActions';
+import { importAllCompletedTasks, updateTask } from '../../../actions/tasksActions';
 import { Pagination, Loader } from 'semantic-ui-react';
 import TasksList from './components/TasksLists';
 import { ListContainerWrapper, Loaderwrapper } from './ListContainer.style';
@@ -24,7 +24,7 @@ const CompletedListContainer = props => {
 	};
 	return completedTasks && completedTasks.length > 0 ? (
 		<ListContainerWrapper>
-			<TasksList tasksResults={completedTasks} limitedFunctionality={true}></TasksList>
+			<TasksList tasksResults={completedTasks} updateTask={updateTask} limitedFunctionality={true}></TasksList>
 			<Pagination
 				defaultActivePage={1}
 				onPageChange={(e, data) => pageChangeHandler(e, data)}
@@ -43,4 +43,4 @@ const mapStateToProps = ({ tasksReducer }) => ({
 	tasksReducer,
 });
 
-export default connect(mapStateToProps, { importAllCompletedTasks })(CompletedListContainer);
+export default connect(mapStateToProps, { importAllCompletedTasks, updateTask })(CompletedListContainer);

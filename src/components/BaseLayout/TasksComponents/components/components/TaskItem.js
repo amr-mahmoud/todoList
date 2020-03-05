@@ -9,11 +9,12 @@ import {
 	TasksItemHeaderWWrapper,
 	DueTimeWrapper,
 	TasksItemWrapper,
+	CompletedLabel,
 	TaskItemDescription,
 } from './TaskItem.style';
 
 const TasksItem = props => {
-	const { title, description, completed, dueTime, updateTask, id, deleteTask } = props;
+	const { title, description, completed, dueTime, updateTask, id, deleteTask, limitedFunctionality } = props;
 	const [showModal, setShowModal] = useState(false);
 
 	const getRemainingDateString = () => {
@@ -23,17 +24,33 @@ const TasksItem = props => {
 		const timeRemainingInWeeks = dueDate.diff(dateNow, 'weeks', true);
 		const timeRemainingInDays = Math.floor((timeRemainingInWeeks - Math.floor(timeRemainingInWeeks)) * 7);
 		if (timeRemainingInWeeks > 0)
-			return `Remaining Time : ${Math.floor(timeRemainingInWeeks)} weeks and ${timeRemainingInDays} days `;
-		return `Deadline line Has been reached`;
+			return (
+				<DueTimeWrapper>{`Remaining Time : ${Math.floor(
+					timeRemainingInWeeks
+				)} weeks and ${timeRemainingInDays} days `}</DueTimeWrapper>
+			);
+		return <DueTimeWrapper color="#ce3030d4">{`Deadline line Has been reached`}</DueTimeWrapper>;
 	};
 
 	const taskItemOnClickHandler = () => {
+		if (limitedFunctionality) return;
 		setShowModal(!showModal);
 	};
 
 	const deleteIconOnClickHandler = e => {
 		e.stopPropagation();
 		deleteTask(id);
+	};
+
+	const checkBoxHandler = () => {
+		const task = {
+			id: id,
+			title: title,
+			completed: false,
+			description: description,
+			dueTime: dueTime,
+		};
+		updateTask(task);
 	};
 
 	return (
@@ -50,14 +67,16 @@ const TasksItem = props => {
 				id={id}
 			/>
 			<TasksItemWrapper onClick={() => taskItemOnClickHandler()}>
-				<DeleteIcon onClick={e => deleteIconOnClickHandler(e)} name="delete"></DeleteIcon>
+				{!limitedFunctionality && <DeleteIcon onClick={e => deleteIconOnClickHandler(e)} name="delete"></DeleteIcon>}
 				<TasksItemHeaderWWrapper>
 					<Title>{title}</Title>
-
-					<DueTimeWrapper>{getRemainingDateString()}</DueTimeWrapper>
+					{getRemainingDateString()}
 				</TasksItemHeaderWWrapper>
 				<TaskItemBody>
-					<Checkbox toggle checked={completed} />
+					<CompletedLabel>{completed ? 'The Task has been completed' : 'The task is not done yet'}</CompletedLabel>{' '}
+					{limitedFunctionality && (
+						<Checkbox label="UnCompleted" onChange={() => checkBoxHandler()} checked={completed} />
+					)}
 					<TaskItemDescription>{description}</TaskItemDescription>
 				</TaskItemBody>
 			</TasksItemWrapper>

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Button } from 'semantic-ui-react';
 
 export const Loaderwrapper = styled.div`
 	background: #8080805c;
@@ -13,6 +14,7 @@ export const ListContainerWrapper = styled.div`
 	padding-bottom: 80px;
 	margin: 0 20px;
 	height: fit-content;
+	min-height: 100%;
 	display: flex;
 	flex-direction: column;
 	.ui.pagination.menu {
@@ -24,4 +26,12 @@ export const ListContainerWrapper = styled.div`
 		top: 85%;
 		font-size: 15px;
 	}
+`;
+
+export const CircularButton = styled(Button)`
+	width: 60px;
+	height: 60px;
+	position: fixed;
+	top: 85%;
+	left: 85%;
 `;

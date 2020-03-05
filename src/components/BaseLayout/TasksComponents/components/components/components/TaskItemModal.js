@@ -23,7 +23,7 @@ const CheckboxWrapper = styled.div`
 `;
 
 const TaskItemModal = props => {
-	const { open, mode, setShowModal, checked, title, description, id, updateTask } = props;
+	const { open, mode, setShowModal, checked, title, description, id, updateTask, createTask } = props;
 	const [dueDate, setDueDate] = useState(new Date());
 	const [taskCompleted, setTaskCompleted] = useState(checked);
 	const [taskTitle, setTaskTitle] = useState('');
@@ -58,13 +58,13 @@ const TaskItemModal = props => {
 			description: taskDescription,
 			dueTime: dueDate,
 		};
-		updateTask(task);
+		mode === 'Create' ? createTask(task) : updateTask(task);
 		setShowModal(false);
 	};
 
 	return (
 		<ModalComponent open={open} size={'large'}>
-			<Modal.Header>Edit Task</Modal.Header>;
+			<Modal.Header>{`${mode} Task`}</Modal.Header>
 			<Modal.Content>
 				<Modal.Description>
 					<ModalBodyWrapper>
@@ -77,7 +77,6 @@ const TaskItemModal = props => {
 						/>
 						<CheckboxWrapper>
 							<DatePicker showTimeSelect onChange={date => datePickerHandler(date)} />
-
 							<ModalCheckBox
 								label={taskCompleted ? 'Completed' : 'Not Finished'}
 								checked={taskCompleted}
@@ -89,10 +88,8 @@ const TaskItemModal = props => {
 				</Modal.Description>
 			</Modal.Content>
 			<Modal.Actions>
-				<Button color="black" onClick={() => setShowModal(false)}>
-					Cancel
-				</Button>
-				<Button primary icon="checkmark" content="Update" onClick={() => submitTask()} />
+				<Button content={'cancel'} color="black" onClick={() => setShowModal(false)}></Button>
+				<Button primary icon="checkmark" content={'Submit'} onClick={() => submitTask()} />
 			</Modal.Actions>
 		</ModalComponent>
 	);
