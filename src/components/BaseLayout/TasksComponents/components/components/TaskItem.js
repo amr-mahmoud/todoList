@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import moment from 'moment';
-import { Checkbox } from 'semantic-ui-react';
 import TaskItemModal from './components/TaskItemModal';
 import {
 	DeleteIcon,
@@ -42,17 +41,6 @@ const TasksItem = props => {
 		deleteTask(id);
 	};
 
-	const checkBoxHandler = () => {
-		const task = {
-			id: id,
-			title: title,
-			completed: false,
-			description: description,
-			dueTime: dueTime,
-		};
-		updateTask(task);
-	};
-
 	return (
 		<>
 			<TaskItemModal
@@ -66,6 +54,7 @@ const TasksItem = props => {
 				mode="Edit"
 				id={id}
 			/>
+
 			<TasksItemWrapper onClick={() => taskItemOnClickHandler()}>
 				{!limitedFunctionality && <DeleteIcon onClick={e => deleteIconOnClickHandler(e)} name="delete"></DeleteIcon>}
 				<TasksItemHeaderWWrapper>
@@ -73,10 +62,7 @@ const TasksItem = props => {
 					{getRemainingDateString()}
 				</TasksItemHeaderWWrapper>
 				<TaskItemBody>
-					<CompletedLabel>{completed ? 'The Task has been completed' : 'The task is not done yet'}</CompletedLabel>{' '}
-					{limitedFunctionality && (
-						<Checkbox label="UnCompleted" onChange={() => checkBoxHandler()} checked={completed} />
-					)}
+					<CompletedLabel>{completed ? 'The Task has been completed' : 'The task is not done yet'}</CompletedLabel>
 					<TaskItemDescription>{description}</TaskItemDescription>
 				</TaskItemBody>
 			</TasksItemWrapper>

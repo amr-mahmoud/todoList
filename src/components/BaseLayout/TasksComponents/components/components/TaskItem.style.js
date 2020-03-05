@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Icon, Label } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 
 const CompletedLabel = styled.div`
 	margin: 10px 0;

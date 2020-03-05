@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ModalComponent from '../../../../../UI/Modal';
-import { Button, Modal, Input, Checkbox, Label } from 'semantic-ui-react';
+import { Button, Modal, Input, Checkbox } from 'semantic-ui-react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -9,7 +9,6 @@ const ModalBodyWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-
 	.ui.input {
 		margin: 20px 0;
 		width: 50%;

@@ -18,16 +18,6 @@ const TasksListContainer = props => {
 
 	useEffect(() => {
 		importAllTasks(5, 0);
-		// const task = { title: 'NewTask1', description: 'syuhdysgdysg', completed: true };
-		// createTask();
-		// deleteTask('ck7db81y6sn980b20qnedgkfl');
-		// const task = {
-		// 	id: 'ck77vhf6q747s0b84l63v6ttm',
-		// 	title: 'newYess',
-		// 	completed: true,
-		// 	description: 'describe yes ofcourse',
-		// };
-		// updateTask(task);
 	}, []);
 
 	useEffect(() => {
@@ -41,7 +31,6 @@ const TasksListContainer = props => {
 		if (bottomVisible)
 			if (!loading) {
 				setLoading(true);
-				console.log(tasksResults.length);
 				importAllTasks(5, tasksResults.length);
 			}
 	};
