@@ -5,26 +5,23 @@ import { BaseLayoutWrapper } from './BaseLayout.style';
 import { Icon, Menu, Sidebar } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-const BaseLayout = () => {
+const BaseLayout = props => {
+	const { history } = props;
 	const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
 
 	return (
 		<BaseLayoutWrapper>
 			{!isTabletOrMobile && (
 				<Sidebar as={Menu} animation="overlay" icon="labeled" inverted vertical visible={true} width="thin">
-					<Link to={'/'}>
-						<Menu.Item as="a">
-							<Icon name="home" />
-							Home List
-						</Menu.Item>
-					</Link>
+					<Menu.Item as="a" onClick={() => history.push('/')}>
+						<Icon name="home" />
+						Home List
+					</Menu.Item>
 
-					<Link to={'/completedList'}>
-						<Menu.Item as="a">
-							<Icon name="list" />
-							CompletedList
-						</Menu.Item>
-					</Link>
+					<Menu.Item as="a" onClick={() => history.push('/completedList')}>
+						<Icon name="list" />
+						CompletedList
+					</Menu.Item>
 				</Sidebar>
 			)}
 			<Header>
