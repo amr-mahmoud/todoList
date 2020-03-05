@@ -1,12 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import CompletedListContainer from '../components/BaseLayout/TasksComponents/CompletedListContainer';
-import TasksListContianer from '../components/BaseLayout/TasksComponents/TasksListContainer';
+import BaseLayout from '../components/BaseLayout/BaseLayout';
 const Routes = () => (
 	<BrowserRouter>
 		<Switch>
-			<Route path="/completedList" component={CompletedListContainer} />
-			<Route path="/" component={TasksListContianer} />
+			<Route path="/" component={BaseLayout} />
 		</Switch>
 	</BrowserRouter>
 );

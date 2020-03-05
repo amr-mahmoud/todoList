@@ -4,7 +4,9 @@ import style from './Header.style';
 
 const Header = ({ children, className, rest }) => (
     <div {...rest} className={className}>
+        
         {children}
+
     </div>
 );
 
