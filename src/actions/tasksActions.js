@@ -105,6 +105,8 @@ export function deleteTask(input) {
 	})
 		.then(result => {
 			console.log('RES', result);
+			store.dispatch({ type: TASK.CLEAR_ALL });
+			importAllTasks(5, 0);
 			return store.dispatch({ type: TASK.DELETE_SUCCESS, payload: result.data.tasks });
 		})
 		.catch(err => {
@@ -116,8 +118,6 @@ export function deleteTask(input) {
 export function updateTask(input) {
 	store.dispatch({ type: TASK.UPDATE_REQUEST });
 
-	const { tasksReducer } = store.getState();
-	const { tasksResults } = tasksReducer;
 	const { id } = input;
 	delete input.id;
 	return dispatch => {
@@ -138,7 +138,6 @@ export function updateTask(input) {
 		})
 			.then(result => {
 				dispatch({ type: TASK.CLEAR_ALL });
-				console.log(tasksResults);
 				importAllTasks(5, 0);
 				return dispatch({ type: TASK.UPDATE_SUCCESS });
 			})

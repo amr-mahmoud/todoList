@@ -26,6 +26,17 @@ export default function tasksReducer(state = initialState, action) {
 				completedTasksCount: action.payload.tasksConnection.aggregate.count,
 			};
 
+		case TASK.UPDATE_SUCCESS:
+			return {
+				...state,
+			};
+
+		case TASK.CLEAR_ALL:
+			return {
+				...state,
+				tasksResults: [],
+			};
+
 		default:
 			return state;
 	}
