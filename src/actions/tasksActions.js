@@ -51,14 +51,12 @@ export function importAllCompletedTasks(input) {
 		`,
 	})
 		.then(result => {
-			console.log('HERE', result);
 			return store.dispatch({
 				type: TASK.IMPORT_ALL_COMPLETED_SUCCESS,
 				payload: result.data,
 			});
 		})
 		.catch(err => {
-			console.log(err);
 			store.dispatch({ type: TASK.IMPORT_ALL_COMPLETED_FAILED, payload: err });
 		});
 }
@@ -68,7 +66,6 @@ export function updateTask(input) {
 
 	const { id } = input;
 	delete input.id;
-	console.log(id);
 	return dispatch => {
 		return API_SERVICE.MYTASK_API.mutate({
 			variables: { input, id },
@@ -86,8 +83,6 @@ export function updateTask(input) {
 			`,
 		})
 			.then(result => {
-				console.log(result);
-
 				dispatch({ type: TASK.CLEAR_ALL });
 				importAllTasks(5, 0);
 				return dispatch({ type: TASK.UPDATE_SUCCESS });
@@ -116,12 +111,10 @@ export function createTask(input) {
 		`,
 	})
 		.then(result => {
-			console.log('RES', result);
-			return store.dispatch({ type: TASK.CREATE_SUCCESS, payload: result });
+			return store.dispatch({ type: TASK.CREATE_SUCCESS, payload: result.data.createTask });
 		})
 		.catch(err => {
-			console.log('err', err);
-			store.dispatch({ type: TASK.IMPORT_ALL_FAILED });
+			store.dispatch({ type: TASK.IMPORT_ALL_FAILED, payload: err });
 		});
 }
 
@@ -141,10 +134,7 @@ export function deleteTask(input) {
 		`,
 	})
 		.then(result => {
-			console.log('RES', result);
-			// store.dispatch({ type: TASK.CLEAR_ALL });
-			// importAllTasks(5, 0);
-			return store.dispatch({ type: TASK.DELETE_SUCCESS, payload: result });
+			return store.dispatch({ type: TASK.DELETE_SUCCESS, payload: result.data.deleteTask });
 		})
 		.catch(err => {
 			console.log('err', err);

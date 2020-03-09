@@ -33,9 +33,7 @@ export default function tasksReducer(state = initialState, action) {
 
 		case TASK.CREATE_SUCCESS:
 			const tempCreateArray = state.tasksResults;
-			console.log(tempCreateArray);
-			tempCreateArray.push(action.payload.data.createTask);
-			console.log(tempCreateArray);
+			tempCreateArray.push(action.payload);
 
 			return {
 				...state,
@@ -44,7 +42,7 @@ export default function tasksReducer(state = initialState, action) {
 
 		case TASK.DELETE_SUCCESS:
 			const tempArray = state.tasksResults.filter(value => {
-				return value.id !== action.payload.data.deleteTask.id;
+				return value.id !== action.payload.id;
 			});
 			return {
 				...state,
