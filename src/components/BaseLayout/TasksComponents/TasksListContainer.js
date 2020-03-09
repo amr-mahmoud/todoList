@@ -7,7 +7,7 @@ import TaskItemModal from './components/components/components/TaskItemModal';
 import TasksList from './components/TasksLists';
 import { useMediaQuery } from 'react-responsive';
 
-const TasksListContainer = props => {
+export const TasksListContainer = props => {
 	const { tasksReducer, updateTask } = props;
 	const { tasksResults } = tasksReducer;
 	const [loading, setLoading] = useState(false);

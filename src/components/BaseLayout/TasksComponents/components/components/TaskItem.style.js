@@ -49,6 +49,7 @@ const Title = styled.h1`
 	color: #fff9f9;
 	margin: auto 0;
 `;
+
 const DueTimeWrapper = styled.div`
 	color: ${props => props.color};
 	font-weight: ${props => (props.color ? 'bold' : 'normal')};
@@ -75,6 +76,8 @@ const DeleteIcon = styled(Icon)`
 	margin: -1px 0 10px 20px;
 	cursor: pointer;
 `;
+
+Title.displayName = 'Title';
 
 export {
 	DeleteIcon,
